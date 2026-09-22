@@ -1,0 +1,4 @@
+5a761fc (HEAD -> main, origin/main) w14-update
+848ffc3 Delete W13 อัพเดต.pdf
+4f3ed26 Delete Function Design.pdf
+889a95f  function update
