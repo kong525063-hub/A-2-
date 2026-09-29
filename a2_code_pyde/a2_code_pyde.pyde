@@ -57,11 +57,34 @@ def draw_grid_recursive(r, c):
 
 
 def draw():
-    if game_over:
+    background(15, 23, 42)
 
-    else:
+    fill(255)
+    textSize(24)
+    textAlign(CENTER, CENTER)
+    text("LIGHTS OUT", width / 2, 35)
+
+    textSize(16)
+    fill(148, 163, 184)
+    text("Moves: " + str(moves), width / 2, 70)
 
 
+    for r in range(ROWS):
+        for c in range(COLS):
+            x = OFFSET_X + c * (CELL_SIZE + 5)
+            y = OFFSET_Y + r * (CELL_SIZE + 5)
+
+            if grid[r][c] == 1:
+                fill(250, 204, 21)  
+                stroke(234, 179, 8)
+            else:
+                fill(30, 41, 59)    
+                stroke(51, 65, 85)
+
+            strokeWeight(2)
+            rect(x, y, CELL_SIZE, CELL_SIZE, 8)
+
+   
 def mousePressed():
     global moves, game_over
     if game_over:
