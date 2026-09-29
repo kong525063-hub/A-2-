@@ -18,8 +18,15 @@ def setup():
 
 def reset_game():
     global grid, moves, game_over
+    grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
+    moves = 0
+    game_over = False
 
-
+    for _ in range(12):
+        r = random.randint(0, ROWS - 1)
+        c = random.randint(0, COLS - 1)
+        toggle(r, c)
+    moves = 0
 def toggle(r, c):
     global grid
     if 0 <= r < ROWS and 0 <= c < COLS:
