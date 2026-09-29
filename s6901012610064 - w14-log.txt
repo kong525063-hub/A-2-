@@ -1,4 +1,14 @@
-5a761fc (HEAD -> main, origin/main) w14-update
+aef3794 (HEAD -> main, origin/main, origin/HEAD) draw
+eb1c4ac check_win
+9360488 toggle
+c8ebaf1 toggle
+fa322c7 Delete a2_code_pyde/a2 code.pyde
+e68c7a0 reset_game
+cd164ce setup
+1e0cf97 W13
+f757e29 Initial commit
+0332589 w14-update
+5a761fc w14-update
 848ffc3 Delete W13 อัพเดต.pdf
 4f3ed26 Delete Function Design.pdf
 889a95f  function update
