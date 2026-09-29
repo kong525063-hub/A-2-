@@ -28,11 +28,10 @@ def reset_game():
         toggle(r, c)
     moves = 0
 def toggle(r, c):
-    global grid
-    if 0 <= r < ROWS and 0 <= c < COLS:
-
-    else:
-
+    targets = [(r, c), (r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]
+    for dr, dc in targets:
+        if 0 <= dr < ROWS and 0 <= dc < COLS:
+            grid[dr][dc] = 1 - grid[dr][dc]
 
 def check_win():
     if not any(1 in row for row in grid):
