@@ -34,10 +34,11 @@ def toggle(r, c):
             grid[dr][dc] = 1 - grid[dr][dc]
 
 def check_win():
-    if not any(1 in row for row in grid):
-        return True
-    else:
-        return False
+    for r in range(ROWS):
+        for c in range(COLS):
+            if grid[r][c] == 1:
+                return False
+    return True
 
 
 def draw_bulb(cx, cy, is_on):
