@@ -1,4 +1,5 @@
-aef3794 (HEAD -> main, origin/main, origin/HEAD) draw
+5d2fbe7 (HEAD -> main, origin/main, origin/HEAD) w15
+aef3794 draw
 eb1c4ac check_win
 9360488 toggle
 c8ebaf1 toggle
@@ -12,3 +13,4 @@ f757e29 Initial commit
 848ffc3 Delete W13 อัพเดต.pdf
 4f3ed26 Delete Function Design.pdf
 889a95f  function update
+
