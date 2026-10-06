@@ -2,9 +2,12 @@ import random
 
 ROWS = 5
 COLS = 5
-CELL_SIZE = 65
-OFFSET_X = 37
+CELL_SIZE = 60
+SPACING = 6
+OFFSET_X = 38 
 OFFSET_Y = 100
+
+SAVE_FILE = "save.txt"
 
 grid = []
 moves = 0
@@ -23,6 +26,7 @@ def reset_game():
     grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
     game_over = False
 
+    # สุ่มไฟเริ่มต้น
     for _ in range(12):
         r = random.randint(0, ROWS - 1)
         c = random.randint(0, COLS - 1)
@@ -30,6 +34,35 @@ def reset_game():
         
     moves = 0
     start_time = millis()
+
+
+def save_game():
+    try:
+        with open(SAVE_FILE, 'w') as f:
+            f.write("count=\n" + str(moves) + "\n")
+            f.write("check_win=\n" + ("1" if game_over else "0") + "\n")
+            f.write("grid=\n")
+            for row in grid:
+                f.write(" ".join(str(cell) for cell in row) + "\n")
+        print("Game Saved!")
+    except:
+        print("Save failed.")
+
+def load_game():
+    global grid, moves, start_time, game_over
+    try:
+        with open(SAVE_FILE, 'r') as f:
+            lines = f.readlines()
+            
+        moves = int(lines[1])
+        game_over = (int(lines[3]) == 1)
+        
+        grid = [[int(val) for val in lines[i].split()] for i in range(5, 5 + ROWS)]
+        
+        start_time = millis()
+        print("Game Loaded!")
+    except:
+        print("Load failed. No file or wrong format.")
 
 def toggle(r, c):
     targets = [(r, c), (r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]
@@ -45,12 +78,13 @@ def check_win():
     return True
 
 def draw():
-    background(15, 23, 42)
+    background(248, 250, 252)
 
-    fill(255)
+    # ------------------ ส่วน Header ------------------
+    fill(71, 85, 105) 
     textSize(24)
     textAlign(CENTER, CENTER)
-    text("LIGHTS OUT", width / 2, 35)
+    text("L I G H T S  O U T", width / 2, 35)
 
     if not game_over:
         elapsed_sec = (millis() - start_time) // 1000
@@ -61,9 +95,9 @@ def draw():
     secs = elapsed_sec % 60
     time_str = "{:02d}:{:02d}".format(mins, secs)
 
-    textSize(16)
-    fill(148, 163, 184)
-    text("Moves: " + str(moves) + "   |   Time: " + time_str, width / 2, 70)
+    textSize(14)
+    fill(148, 163, 184) 
+    text("Moves: " + str(moves) + "    Time: " + time_str, width / 2, 65)
 
     # ------------------ ส่วน Hover Effects ------------------
     hover_r = -1
@@ -72,8 +106,8 @@ def draw():
     if not game_over:
         for r in range(ROWS):
             for c in range(COLS):
-                x = OFFSET_X + c * (CELL_SIZE + 5)
-                y = OFFSET_Y + r * (CELL_SIZE + 5)
+                x = OFFSET_X + c * (CELL_SIZE + SPACING)
+                y = OFFSET_Y + r * (CELL_SIZE + SPACING)
                 if x <= mouseX <= x + CELL_SIZE and y <= mouseY <= y + CELL_SIZE:
                     hover_r = r
                     hover_c = c
@@ -90,43 +124,53 @@ def draw():
         ]
     # --------------------------------------------------------
 
+    noStroke()
+
     for r in range(ROWS):
         for c in range(COLS):
-            x = OFFSET_X + c * (CELL_SIZE + 5)
-            y = OFFSET_Y + r * (CELL_SIZE + 5)
+            x = OFFSET_X + c * (CELL_SIZE + SPACING)
+            y = OFFSET_Y + r * (CELL_SIZE + SPACING)
             
             is_hovered = (r, c) in affected_cells
 
             if grid[r][c] == 1:
                 if is_hovered:
-                    fill(254, 240, 138)  
-                    stroke(250, 204, 21)
+                    fill(245, 158, 11)
                 else:
-                    fill(250, 204, 21)   
-                    stroke(234, 179, 8)
+                    fill(250, 191, 36)
             else:
                 if is_hovered:
-                    fill(51, 65, 85)     
-                    stroke(71, 85, 105)
+                    fill(148, 163, 184)
                 else:
-                    fill(30, 41, 59)     
-                    stroke(51, 65, 85)
+                    fill(203, 213, 225)
 
-            strokeWeight(2)
-            rect(x, y, CELL_SIZE, CELL_SIZE, 8)
+            rect(x, y, CELL_SIZE, CELL_SIZE, 12)
             
+    # ------------------ ส่วนอธิบายปุ่มกด (UI) ------------------
+    if not game_over:
+        fill(148, 163, 184)
+        textSize(12)
+        text("[R] Restart   [S] Save   [L] Load", width / 2, height - 20)
+
+    # ------------------ ส่วนตอนจบเกม ------------------
     if game_over:
-        fill(0, 0, 0, 210)
+        fill(255, 255, 255, 220) 
         rect(0, 0, width, height)
-        fill(34, 197, 94)
-        textSize(32)
-        text("YOU CLEARED IT!", width / 2, height / 2 - 30)
+        
+        fill(51, 65, 85)
+        textSize(28)
+        text("Cleared!", width / 2, height / 2 - 30)
         
         textSize(16)
-        fill(255)
-        text("Total Moves: " + str(moves), width / 2, height / 2 + 10)
-        text("Time Taken: " + time_str, width / 2, height / 2 + 35)
-        text("Press 'R' to Restart", width / 2, height / 2 + 70)
+        fill(100, 116, 139)
+        text("Moves: " + str(moves) + "   |   Time: " + time_str, width / 2, height / 2 + 10)
+        
+        fill(241, 245, 249) 
+        rect(width / 2 - 70, height / 2 + 45, 140, 40, 20) 
+        
+        fill(71, 85, 105)
+        textSize(14)
+        text("Press 'R' to Restart", width / 2, height / 2 + 63)
 
 def mousePressed():
     global moves, game_over, final_time
@@ -136,8 +180,8 @@ def mousePressed():
 
     for r in range(ROWS):
         for c in range(COLS):
-            x = OFFSET_X + c * (CELL_SIZE + 5)
-            y = OFFSET_Y + r * (CELL_SIZE + 5)
+            x = OFFSET_X + c * (CELL_SIZE + SPACING)
+            y = OFFSET_Y + r * (CELL_SIZE + SPACING)
 
             if x <= mouseX <= x + CELL_SIZE and y <= mouseY <= y + CELL_SIZE:
                 toggle(r, c)
@@ -151,3 +195,7 @@ def mousePressed():
 def keyPressed():
     if key == 'r' or key == 'R':
         reset_game()
+    elif key == 's' or key == 'S':
+        save_game()
+    elif key == 'l' or key == 'L':
+        load_game()
