@@ -1,4 +1,6 @@
-5d2fbe7 (HEAD -> main, origin/main, origin/HEAD) w15
+c9d7975 (HEAD -> main, origin/main, origin/HEAD) ezzzzzzzzz
+15c97b5 update ui and all game
+5d2fbe7 w15
 aef3794 draw
 eb1c4ac check_win
 9360488 toggle
