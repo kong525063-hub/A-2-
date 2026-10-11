@@ -1,4 +1,5 @@
-c9d7975 (HEAD -> main, origin/main, origin/HEAD) ezzzzzzzzz
+28fe24a (HEAD -> main, origin/main, origin/HEAD) ok
+c9d7975 ezzzzzzzzz
 15c97b5 update ui and all game
 5d2fbe7 w15
 aef3794 draw
@@ -15,4 +16,3 @@ f757e29 Initial commit
 848ffc3 Delete W13 อัพเดต.pdf
 4f3ed26 Delete Function Design.pdf
 889a95f  function update
-
