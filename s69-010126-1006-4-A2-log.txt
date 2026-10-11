@@ -1,4 +1,5 @@
-28fe24a (HEAD -> main, origin/main, origin/HEAD) ok
+8e8d433 (HEAD -> main, origin/main, origin/HEAD) logupdate
+28fe24a ok
 c9d7975 ezzzzzzzzz
 15c97b5 update ui and all game
 5d2fbe7 w15
